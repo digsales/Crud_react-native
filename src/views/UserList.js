@@ -41,7 +41,7 @@ export default (props) => {
       <ListItem
         key={user.id}
         bottomDivider
-        onPress={() => props.navigation.navigate("UserForm", user)}
+        // onPress={() => props.navigation.navigate("UserForm", user)}
       >
         <Avatar rounded source={{ uri: user.avatarUrl }} />
         <ListItem.Content>
