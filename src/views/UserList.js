@@ -1,15 +1,47 @@
-import { Avatar, ListItem } from "@rneui/themed";
+import { Avatar, Button, ListItem } from "@rneui/themed";
 import React from "react";
-import { Text, StyleSheet, View, FlatList } from "react-native";
+import { StyleSheet, View, FlatList, Alert } from "react-native";
 import users from "../data/users";
+import Ionicon from "@expo/vector-icons/Ionicons";
 
 export default (props) => {
+  function confirmUserDeletion(user) {
+    Alert.alert("Exluir Usuário", "Deseja mesmo exluir este usuário?", [
+      {
+        text: "Sim",
+        onPress() {
+          console.warn(user.name + " exluído com sucesso!");
+        },
+      },
+      {
+        text: "Não",
+      },
+    ]);
+  }
+
+  function getActions(user) {
+    return (
+      <View style={{ flexDirection: "row" }}>
+        <Button
+          onPress={() => props.navigation.navigate("UserForm", user)}
+          type="clear"
+          icon={<Ionicon name="pencil" size={25} color="orange" />}
+        />
+        <Button
+          onPress={() => confirmUserDeletion(user)}
+          type="clear"
+          icon={<Ionicon name="trash" size={25} color="red" />}
+        />
+      </View>
+    );
+  }
+
   function getUserItem({ item: user }) {
     return (
       <ListItem
         key={user.id}
         bottomDivider
-        onPress={() => props.navigation.navigate("UserForm")}
+        onPress={() => props.navigation.navigate("UserForm", user)}
       >
         <Avatar rounded source={{ uri: user.avatarUrl }} />
         <ListItem.Content>
@@ -18,6 +50,7 @@ export default (props) => {
           </ListItem.Title>
           <ListItem.Subtitle>{user.email}</ListItem.Subtitle>
         </ListItem.Content>
+        <ListItem.Content right>{getActions(user)}</ListItem.Content>
       </ListItem>
     );
   }
