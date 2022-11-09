@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, StyleSheet } from "react-native";
 
-export default (props) => {
-  return <Text style={styles.container}>UserForm</Text>;
+export default ({ route, navigation }) => {
+  const [user, setUser] = useState(route.params ? route.params : {});
+  return <Text style={styles.container}>{user.name}</Text>;
 };
 
 const styles = StyleSheet.create({
