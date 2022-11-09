@@ -2,7 +2,7 @@
 
 ### Setting up project
 
-    npx create-expo-app Navegacao
+    npx create-expo-app rnCrud
     
 ### Initializing app
 
