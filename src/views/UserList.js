@@ -5,14 +5,17 @@ import Ionicon from "@expo/vector-icons/Ionicons";
 import UsersContext from "../context/UsersContext";
 
 export default (props) => {
-  const { state } = useContext(UsersContext);
+  const { state, dispatch } = useContext(UsersContext);
 
   function confirmUserDeletion(user) {
     Alert.alert("Exluir Usuário", "Deseja mesmo exluir este usuário?", [
       {
         text: "Sim",
         onPress() {
-          console.warn(user.name + " exluído com sucesso!");
+          dispatch({
+            type: "deleteUser",
+            payload: user,
+          });
         },
       },
       {
